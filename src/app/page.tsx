@@ -7,7 +7,7 @@ import Image from 'next/image';
 import BlurText from '@/components/BlurText';
 // import { Sparkles } from '../components/Sparkles';
 
-// Initialize Urbanist font
+// Initialize Urbanist font  
 const urbanist = Urbanist({
   subsets: ['latin'],
   display: 'swap',
