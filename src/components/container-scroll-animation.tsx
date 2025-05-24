@@ -81,18 +81,17 @@ export const Card = ({
     <motion.div
       style={{
         rotateX: rotate,
-        scale,
-        boxShadow:
-          "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003",
+        
       }}
-      className="max-w-5xl -mt-16x mx-auto h-[30rem] md:h-[40rem] w-full md:p-6 rounded-[30px] shadow-2xl"
+      className="max-w-5xl  mx-auto h-[30rem] md:h-[40rem] w-full md:p-6 rounded-[30px] "
     >
-      <div className="h-full w-full overflow-hidden rounded-2xl bg-gray-100 dark:bg-zinc-900 md:rounded-2xl relative">
+      <div className="h-full w-full overflow-hidden rounded-2xl  dark:bg-zinc-900 md:rounded-2xl relative">
         <div
           className="absolute inset-0 z-10 pointer-events-none"
           style={{
-            background:
-              "linear-gradient(to bottom, transparent 0%, transparent 70%, rgba(0,0,0,0.3) 90%, rgba(0,0,0,0.8) 100%)",
+            maskImage: "linear-gradient(to bottom, transparent 0%, transparent 70%, black 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, transparent 70%, black 100%)",
+            background: "rgba(0,0,0,0.8)",
           }}
         />
         {children}
