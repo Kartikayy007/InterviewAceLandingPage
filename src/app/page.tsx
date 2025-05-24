@@ -8,6 +8,11 @@ import { ContainerScroll } from '../components/container-scroll-animation';
 import Aurora from '@/components/Aurora';
 import Footer from '@/components/footer';
 import ScrollVelocity from '@/components/ScrollVelocity';
+import Navbar from '@/components/Navbar';
+import { Carousel, Card } from '../components/apple-cards-carousel';
+import {GlowingEffect} from '@/components/glowing-effect';
+import { LampContainer } from '../components/lamp';
+import Grid from '../components/Grid';
 
 // Initialize Poppins font  
 const poppins = Poppins({
@@ -18,6 +23,27 @@ const poppins = Poppins({
 });
 
 export default function Home() {
+  const cards = [
+    {
+      src: "/hero.png",
+      title: "Real-time AI Assistance",
+      category: "AI Powered",
+      content: <p>Get instant help during your interviews with our invisible AI assistant that provides real-time coding solutions and answers.</p>
+    },
+    {
+      src: "/hero.png", 
+      title: "Undetectable Technology",
+      category: "Stealth Mode",
+      content: <p>Our advanced technology ensures your AI assistance remains completely invisible to interviewers and screen sharing software.</p>
+    },
+    {
+      src: "/hero.png",
+      title: "Practice Sessions",
+      category: "Preparation",
+      content: <p>Perfect your interview skills with our comprehensive practice sessions covering coding, system design, and behavioral questions.</p>
+    }
+  ];
+
   return (
     <div className={`${poppins.className}`}>
       <style jsx>{`
@@ -26,6 +52,10 @@ export default function Home() {
           to { opacity: 1; }
         }
       `}</style>
+
+      <Navbar />
+
+      {/* hero section */}
 
       <div className='absolute inset-0 overflow-hidden h-full w-full -z-10 opacity-0 animate-[fadeIn_1s_ease-in-out_0s_forwards]'>
         <Aurora
@@ -36,27 +66,19 @@ export default function Home() {
         />
       </div>
 
-
       <ContainerScroll
         titleComponent={
           <>
             <div className='flex flex-col items-center justify-center space-y-6 px-4'>
               <div className='flex items-center justify-center '>
-                <Image
-                  src="/InterviewAceLogoLight.png"
-                  alt="Interviewace Logo"
-                  width={250}
-                  height={60}
-                  priority
-                  className="drop-shadow-lg"
-                />
-                <h1 className="text-4xl md:text-8xl font-bold text-white tracking-wider font-poppins drop-shadow-2xl">
-                  InterviewAce
+               
+                <h1 className="text-4xl md:text-7xl font-bold text-white tracking-wider font-poppins mt-12">
+                  Ace the Living Sh*t Out of Your Interviews
                 </h1>
               </div>
 
-              <p className="text-lg -mt-12 md:text-2xl text-white/90 text-center max-w-3xl leading-relaxed font-light">
-                The Invisible and Undetectable AI Interview Copilot
+              <p className="text-lg md:text-md text-white/90 text-center max-w-3xl leading-relaxed font-light mt-2">
+                InterviewAce is an invisible AI assistant that helps you prepare for interviews by offering real-time support for coding and conceptual questions.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 mt-8">
@@ -94,8 +116,23 @@ export default function Home() {
         </div>
       </ContainerScroll>
 
+      {/* How It Works */}
+
+        <h2 className="text-3xl font-bold text-center text-white mb-8">How It Works</h2>
+
+        <div className="mt-10 w-full max-w-7xl mx-auto">
+          <Grid />
+        </div>
+
+
+      {/* to been completed later  */}
+
+      {/* <Carousel items={cards.map((card, index) => (
+        <Card key={card.title} card={card} index={index} />
+      ))} /> */}
+
       <ScrollVelocity
-        texts={['Literally Cheat on it', 'Scroll Down']}
+        texts={['Farm those offer letters', '💼 Land Your Dream Job', '🚀 Beat the Competition', 'Free. Invisible. Ruthlessly Effective.']}
         velocity={50}
         className="custom-scroll-text"
       />
