@@ -132,7 +132,7 @@ export default function Home() {
       ))} /> */}
 
       <ScrollVelocity
-        texts={['Farm those offer letters', '💼 Land Your Dream Job', '🚀 Beat the Competition', 'Free. Invisible. Ruthlessly Effective.']}
+        texts={[ 'Free. Invisible. Ruthlessly Effective.']}
         velocity={50}
         className="custom-scroll-text"
       />
