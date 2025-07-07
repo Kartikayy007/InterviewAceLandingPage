@@ -13,8 +13,9 @@ import { Carousel, Card } from '../components/apple-cards-carousel';
 import {GlowingEffect} from '@/components/glowing-effect';
 import { LampContainer } from '../components/lamp';
 import Grid from '../components/Grid';
+import { AuthModal } from '@/components/AuthModal';
+import { DownloadButton } from '@/components/DownloadButton';
 
-// Initialize Poppins font  
 const poppins = Poppins({
   subsets: ['latin'],
   display: 'swap',
@@ -23,26 +24,15 @@ const poppins = Poppins({
 });
 
 export default function Home() {
-  const cards = [
-    {
-      src: "/hero.png",
-      title: "Real-time AI Assistance",
-      category: "AI Powered",
-      content: <p>Get instant help during your interviews with our invisible AI assistant that provides real-time coding solutions and answers.</p>
-    },
-    {
-      src: "/hero.png", 
-      title: "Undetectable Technology",
-      category: "Stealth Mode",
-      content: <p>Our advanced technology ensures your AI assistance remains completely invisible to interviewers and screen sharing software.</p>
-    },
-    {
-      src: "/hero.png",
-      title: "Practice Sessions",
-      category: "Preparation",
-      content: <p>Perfect your interview skills with our comprehensive practice sessions covering coding, system design, and behavioral questions.</p>
-    }
-  ];
+  const [authMode, setAuthMode] = useState<'signin' | 'signup' | 'waitlist'>('signin')
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
+
+  const openAuthModal = (mode: 'signin' | 'signup' | 'waitlist') => {
+    setAuthMode(mode)
+    setIsAuthModalOpen(true)
+  }
+
+  // ...existing code...
 
   return (
     <div className={`${poppins.className}`}>
@@ -82,25 +72,35 @@ export default function Home() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 mt-8">
+                <DownloadButton onNeedAuth={() => openAuthModal('signin')}>
+                  <button className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+                    <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+                    <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl space-x-2">
+                      <FaApple className="text-2xl" />
+                      <span>Download for Mac</span>
+                    </span>
+                  </button>
+                </DownloadButton>
 
-
-                <button className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
-                  <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-                  <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl space-x-2">
-                    <FaApple className="text-2xl" />
-                    <span>Download for Mac</span>
-                  </span>
-                </button>
-
-                <button className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
-                  <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-                  <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl space-x-2">
-                    <FaWindows className="text-lg" />
-                    <span>Join Waiting List</span>
-                    <FaArrowRight className="text-sm" />
-                  </span>
-                </button>
+                <AuthModal defaultMode="waitlist">
+                  <button className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+                    <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+                    <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl space-x-2">
+                      <FaWindows className="text-lg" />
+                      <span>Join Waiting List</span>
+                      <FaArrowRight className="text-sm" />
+                    </span>
+                  </button>
+                </AuthModal>
               </div>
+
+              {/* Auth Modal controlled by state */}
+              <AuthModal 
+                key={authMode} 
+                defaultMode={authMode}
+              >
+                <div style={{ display: 'none' }} />
+              </AuthModal>
             </div>
           </>
         }
@@ -116,7 +116,6 @@ export default function Home() {
         </div>
       </ContainerScroll>
 
-      {/* How It Works */}
 
         <h2 className="text-3xl font-bold text-center text-white mb-8">How It Works</h2>
 
@@ -124,15 +123,8 @@ export default function Home() {
           <Grid />
         </div>
 
-
-      {/* to been completed later  */}
-
-      {/* <Carousel items={cards.map((card, index) => (
-        <Card key={card.title} card={card} index={index} />
-      ))} /> */}
-
       <ScrollVelocity
-        texts={[ 'Free. Invisible. Ruthlessly Effective.']}
+        texts={[ 'Free Invisible AI Assistant']}
         velocity={50}
         className="custom-scroll-text"
       />

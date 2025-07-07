@@ -3,12 +3,27 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes, FaUser } from 'react-icons/fa';
+import { useUser } from '@/components/UserProvider';
+import { AuthModal } from '@/components/AuthModal';
+import { signOut } from '@/lib/auth-actions';
+import { toast } from 'sonner';
 
 export default function Navbar() {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, loading } = useUser();
+
+  const handleSignOut = async () => {
+    try {
+      const result = await signOut();
+      toast.success(result.message);
+    } catch (error) {
+      console.error('Error signing out:', error);
+      toast.error('Failed to sign out');
+    }
+  };
 
   useEffect(() => {
     const controlNavbar = () => {
@@ -62,8 +77,32 @@ export default function Navbar() {
             <a href="#features" className="text-white hover:text-gray-300 transition-colors">Features</a>
             <a href="#pricing" className="text-white hover:text-gray-300 transition-colors">Pricing</a>
             <a href="#contact" className="text-white hover:text-gray-300 transition-colors">Contact</a>
-            <a href="#login" className="text-white hover:text-gray-300 transition-colors">Login</a>
-            <a href="#signup" className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-colors">Sign Up</a>
+            
+            {loading ? (
+              <div className="text-white">Loading...</div>
+            ) : user ? (
+              <div className="flex items-center space-x-4">
+                <a href="/dashboard" className="text-white hover:text-gray-300 transition-colors flex items-center space-x-2">
+                  <FaUser size={16} />
+                  <span>{user.user_metadata?.full_name || user.email}</span>
+                </a>
+                <button 
+                  onClick={handleSignOut}
+                  className="bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700 transition-colors"
+                >
+                  Sign Out
+                </button>
+              </div>
+            ) : (
+              <>
+                <AuthModal defaultMode="signin">
+                  <button className="text-white hover:text-gray-300 transition-colors">Login</button>
+                </AuthModal>
+                <AuthModal defaultMode="signup">
+                  <button className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-colors">Sign Up</button>
+                </AuthModal>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -106,20 +145,47 @@ export default function Navbar() {
                   >
                     Contact
                   </a>
-                  <a 
-                    href="#login" 
-                    className="text-white hover:text-gray-300 transition-colors py-2 px-3 rounded-lg hover:bg-white/10"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Login
-                  </a>
-                  <a 
-                    href="#signup" 
-                    className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-colors text-center"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Sign Up
-                  </a>
+                  
+                  {user ? (
+                    <>
+                      <a 
+                        href="/dashboard" 
+                        className="text-white hover:text-gray-300 transition-colors py-2 px-3 rounded-lg hover:bg-white/10 flex items-center space-x-2"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        <FaUser size={16} />
+                        <span>Dashboard</span>
+                      </a>
+                      <button 
+                        onClick={() => {
+                          handleSignOut();
+                          setIsMobileMenuOpen(false);
+                        }}
+                        className="bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700 transition-colors text-center"
+                      >
+                        Sign Out
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <AuthModal defaultMode="signin">
+                        <button 
+                          className="text-white hover:text-gray-300 transition-colors py-2 px-3 rounded-lg hover:bg-white/10 text-left"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          Login
+                        </button>
+                      </AuthModal>
+                      <AuthModal defaultMode="signup">
+                        <button 
+                          className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-colors text-center"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          Sign Up
+                        </button>
+                      </AuthModal>
+                    </>
+                  )}
                 </div>
               </motion.div>
             )}
