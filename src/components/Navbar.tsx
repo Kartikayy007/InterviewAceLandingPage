@@ -99,7 +99,7 @@ export default function Navbar() {
                   <button className="text-white hover:text-gray-300 transition-colors">Login</button>
                 </AuthModal>
                 <AuthModal defaultMode="signup">
-                  <button className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-colors">Sign Up</button>
+                  <button className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-colors">Dow   nload</button>
                 </AuthModal>
               </>
             )}
@@ -168,22 +168,6 @@ export default function Navbar() {
                     </>
                   ) : (
                     <>
-                      <AuthModal defaultMode="signin">
-                        <button 
-                          className="text-white hover:text-gray-300 transition-colors py-2 px-3 rounded-lg hover:bg-white/10 text-left"
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          Login
-                        </button>
-                      </AuthModal>
-                      <AuthModal defaultMode="signup">
-                        <button 
-                          className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-colors text-center"
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          Sign Up
-                        </button>
-                      </AuthModal>
                     </>
                   )}
                 </div>

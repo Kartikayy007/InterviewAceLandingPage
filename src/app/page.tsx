@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Poppins } from 'next/font/google';
 import Image from 'next/image';
 import { FaApple, FaWindows, FaArrowRight } from 'react-icons/fa';
@@ -9,9 +9,6 @@ import Aurora from '@/components/Aurora';
 import Footer from '@/components/footer';
 import ScrollVelocity from '@/components/ScrollVelocity';
 import Navbar from '@/components/Navbar';
-import { Carousel, Card } from '../components/apple-cards-carousel';
-import {GlowingEffect} from '@/components/glowing-effect';
-import { LampContainer } from '../components/lamp';
 import Grid from '../components/Grid';
 import { AuthModal } from '@/components/AuthModal';
 import { DownloadButton } from '@/components/DownloadButton';
@@ -24,15 +21,8 @@ const poppins = Poppins({
 });
 
 export default function Home() {
-  const [authMode, setAuthMode] = useState<'signin' | 'signup' | 'waitlist'>('signin')
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
+  
 
-  const openAuthModal = (mode: 'signin' | 'signup' | 'waitlist') => {
-    setAuthMode(mode)
-    setIsAuthModalOpen(true)
-  }
-
-  // ...existing code...
 
   return (
     <div className={`${poppins.className}`}>
@@ -45,7 +35,6 @@ export default function Home() {
 
       <Navbar />
 
-      {/* hero section */}
 
       <div className='absolute inset-0 overflow-hidden h-full w-full -z-10 opacity-0 animate-[fadeIn_1s_ease-in-out_0s_forwards]'>
         <Aurora
@@ -72,7 +61,7 @@ export default function Home() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 mt-8">
-                <DownloadButton onNeedAuth={() => openAuthModal('signin')}>
+                <DownloadButton>
                   <button className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
                     <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
                     <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl space-x-2">
@@ -82,7 +71,7 @@ export default function Home() {
                   </button>
                 </DownloadButton>
 
-                <AuthModal defaultMode="waitlist">
+                <AuthModal>
                   <button className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
                     <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
                     <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl space-x-2">
@@ -94,13 +83,7 @@ export default function Home() {
                 </AuthModal>
               </div>
 
-              {/* Auth Modal controlled by state */}
-              <AuthModal 
-                key={authMode} 
-                defaultMode={authMode}
-              >
-                <div style={{ display: 'none' }} />
-              </AuthModal>
+              
             </div>
           </>
         }

@@ -81,20 +81,26 @@ export async function resetPassword(email: string) {
   return { success: true, message: 'Check your email for reset instructions' }
 }
 
-export async function downloadMacApp() {
+export async function downloadMacApp(userAgent?: string) {
   const supabase = await createClient()
-  
-  const { data: { user } } = await supabase.auth.getUser()
-  
-  if (!user) {
-    throw new Error('You must be logged in to download the Mac app')
+
+  // Record the download in Supabase
+  const { error } = await supabase
+    .from('mac_downloads')
+    .insert([
+      {
+        user_agent: userAgent ?? null,
+        created_at: new Date().toISOString(),
+      },
+    ])
+
+  if (error) {
+    throw new Error(error.message)
   }
-  
-  // In a real app, you would return a secure download URL
-  // For now, we'll just return success
-  return { 
-    success: true, 
-    downloadUrl: '/downloads/InterviewAce.dmg', // This would be your actual DMG file
-    message: 'Download started successfully!' 
+
+  return {
+    success: true,
+    downloadUrl: '/downloads/InterviewAce.dmg', // Replace with your hosted DMG URL
+    message: 'Download started successfully!'
   }
 }

@@ -1,29 +1,22 @@
 'use client'
 
 import { useState } from 'react'
-import { useUser } from './UserProvider'
 import { downloadMacApp } from '@/lib/auth-actions'
 import { toast } from 'sonner'
 import { Loader2 } from 'lucide-react'
 
 interface DownloadButtonProps {
   children: React.ReactNode
-  onNeedAuth: () => void
 }
 
-export function DownloadButton({ children, onNeedAuth }: DownloadButtonProps) {
+export function DownloadButton({ children }: DownloadButtonProps) {
   const [isLoading, setIsLoading] = useState(false)
-  const { user } = useUser()
 
   const handleDownload = async () => {
-    if (!user) {
-      onNeedAuth()
-      return
-    }
-
     setIsLoading(true)
     try {
-      const result = await downloadMacApp()
+      const userAgent = navigator.userAgent
+      const result = await downloadMacApp(userAgent)
       toast.success(result.message)
       
       // Create a temporary download link
