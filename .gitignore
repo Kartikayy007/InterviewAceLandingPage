@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Installer files (too large for Git, host elsewhere)
+public/*.dmg
+public/*.exe
+public/*.msi
+public/*.pkg
+public/*.deb
+public/*.AppImage
