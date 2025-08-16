@@ -20,7 +20,7 @@ export function DownloadButton({ children, platform = 'mac' }: DownloadButtonPro
     // windows: 'https://github.com/Kartikayy007/InterviewAceLandingPage/releases/download/v1.0.0/InterviewAceSetup.exe'
     
     const downloadUrls = {
-      mac: 'https://github.com/Kartikayy007/InterviewAceLandingPage/releases/download/v1.0.0/InterviewAce-1.0.dmg',
+      mac: 'https://github.com/Kartikayy007/InterviewAceLandingPage/releases/download/v1.0.0/InterviewAce.1.0.dmg',
       windows: 'https://github.com/Kartikayy007/InterviewAceLandingPage/releases/download/v1.0.0/InterviewAceSetup.exe'
     }
     
