@@ -1,46 +1,39 @@
 'use client'
 
-import { useState } from 'react'
-import { downloadMacApp } from '@/lib/auth-actions'
-import { toast } from 'sonner'
-import { Loader2 } from 'lucide-react'
-
 interface DownloadButtonProps {
   children: React.ReactNode
+  platform?: 'mac' | 'windows'
 }
 
-export function DownloadButton({ children }: DownloadButtonProps) {
-  const [isLoading, setIsLoading] = useState(false)
-
-  const handleDownload = async () => {
-    setIsLoading(true)
-    try {
-      const userAgent = navigator.userAgent
-      const result = await downloadMacApp(userAgent)
-      toast.success(result.message)
-      
-      // Create a temporary download link
+export function DownloadButton({ children, platform = 'mac' }: DownloadButtonProps) {
+  const handleDownload = () => {
+    // Update these URLs when you have your actual installer files
+    // Place your .dmg and .exe files in the public folder
+    // Example: /InterviewAce.dmg and /InterviewAce.exe
+    
+    const downloadUrls = {
+      mac: '/InterviewAce 1.0.dmg',  // Your actual Mac installer
+      windows: '/InterviewAceSetup.exe' // Your actual Windows installer (150MB)
+    }
+    
+    const url = downloadUrls[platform]
+    
+    if (url) {
+      // Create a temporary link and trigger download
       const link = document.createElement('a')
-      link.href = result.downloadUrl
-      link.download = 'InterviewAce.dmg'
+      link.href = url
+      link.download = platform === 'mac' ? 'InterviewAce 1.0.dmg' : 'InterviewAceSetup.exe'
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'Download failed')
-    } finally {
-      setIsLoading(false)
+    } else {
+      console.error('Download URL not configured for platform:', platform)
     }
   }
 
   return (
-    <button onClick={handleDownload} disabled={isLoading} className="relative">
-      {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full">
-          <Loader2 className="h-4 w-4 animate-spin text-white" />
-        </div>
-      )}
+    <div onClick={handleDownload} style={{ cursor: 'pointer' }}>
       {children}
-    </button>
+    </div>
   )
 }

@@ -3,14 +3,13 @@
 import React from 'react';
 import { Poppins } from 'next/font/google';
 import Image from 'next/image';
-import { FaApple, FaWindows, FaArrowRight } from 'react-icons/fa';
+import { FaApple, FaWindows } from 'react-icons/fa';
 import { ContainerScroll } from '../components/container-scroll-animation';
 import Aurora from '@/components/Aurora';
 import Footer from '@/components/footer';
 import ScrollVelocity from '@/components/ScrollVelocity';
 import Navbar from '@/components/Navbar';
 import Grid from '../components/Grid';
-import { AuthModal } from '@/components/AuthModal';
 import { DownloadButton } from '@/components/DownloadButton';
 
 const poppins = Poppins({
@@ -61,7 +60,7 @@ export default function Home() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 mt-8">
-                <DownloadButton>
+                <DownloadButton platform="mac">
                   <button className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
                     <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
                     <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl space-x-2">
@@ -71,16 +70,15 @@ export default function Home() {
                   </button>
                 </DownloadButton>
 
-                <AuthModal>
+                <DownloadButton platform="windows">
                   <button className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
                     <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
                     <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl space-x-2">
                       <FaWindows className="text-lg" />
-                      <span>Join Waiting List</span>
-                      <FaArrowRight className="text-sm" />
+                      <span>Download for Windows</span>
                     </span>
                   </button>
-                </AuthModal>
+                </DownloadButton>
               </div>
 
               
@@ -100,14 +98,19 @@ export default function Home() {
       </ContainerScroll>
 
 
-        <h2 className="text-3xl font-bold text-center text-white mb-8">How It Works</h2>
+        {/* <h2 className="text-3xl font-bold text-center text-white mb-8">How It Works</h2> */}
 
-        <div className="mt-10 w-full max-w-7xl mx-auto">
+        {/* <div className="mt-10 w-full max-w-7xl mx-auto">
           <Grid />
-        </div>
+        </div> */}
 
       <ScrollVelocity
-        texts={[ 'Free Invisible AI Assistant']}
+        texts={[ 
+          'Ace Every Interview • Real-Time AI Support • Invisible & Undetectable • Practice Makes Perfect',
+          'Land Your Dream Job • Interview With Confidence • Smart Preparation • Success Guaranteed',
+          'Coding Questions Solved • System Design Mastery • Behavioral Interview Excellence • Technical Interview Pro',
+          'Free Forever • No Sign-Up Required • Works Everywhere • Private & Secure'
+        ]}
         velocity={50}
         className="custom-scroll-text"
       />
